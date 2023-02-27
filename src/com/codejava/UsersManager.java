@@ -5,24 +5,34 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class UsersManager{
 	public static void main(String[] args) {
 		String jdbcURL="jdbc:mysql://localhost:3306/sampledb";
 		String dbusername="root";
 		String dbpassword="";
-		String username="Aabhushan";
-		String password="password";
-		String email="aaabhushan@gmail.com";
-		String fullname="Aabhushan Adhikari";
+		
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter username,password,email,fullName");
+		String username=sc.next();
+		String password=sc.next();
+		String email=sc.next();
+		String fullName=sc.next();
+		
 		
 		try {
-			System.out.println("Username"+username);
-			Connection connection=DriverManager.getConnection(jdbcURL,dbusername,dbpassword);
-			String sql=("INSERT INTO users (username,password,fullname,email)"+" VALUES ('Aabhushan', 'Adhikari', 'aaabhushan10@gmail.com', '12345')");
-			Statement stm=connection.createStatement();
 			
-			int rows=stm.executeUpdate(sql);
+			Connection connection=DriverManager.getConnection(jdbcURL,dbusername,dbpassword);
+			
+			String sql="INSERT INTO users (username, password, fullname, email) VALUES (?, ?, ?, ?)";
+			PreparedStatement stm=connection.prepareStatement(sql);
+			stm.setString(1, username);
+			stm.setString(2, password);
+			stm.setString(3, fullName);
+			stm.setString(4, email);
+			
+			int rows=stm.executeUpdate();
 		
 			if(rows>0) {
 				System.out.println("New Row added");
