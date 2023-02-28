@@ -14,7 +14,7 @@ public class UsersManager{
 		String dbpassword="";
 		
 		Scanner sc=new Scanner(System.in);
-		System.out.println("Enter username,password,email,fullName");
+		System.out.println("Enter  std_username,std_password,std_age,std_fullName");
 		String username=sc.next();
 		String password=sc.next();
 		String email=sc.next();
